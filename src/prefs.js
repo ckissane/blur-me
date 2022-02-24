@@ -18,14 +18,20 @@ const BlurMePrefsWidget = GObject.registerClass(
       "blur_panel",
       "blur_overview",
       "blur_lockscreen",
+        'blur_appfolders',
+        'blur_window_list',
       "blur_applications",
       "blur_other",
       "hacks_level0",
       "hacks_level1",
       "hacks_level2",
       "dash_opacity_scale",
+        'appfolder_dialog_opacity_scale',
       "static_blur",
       "toggle_app_blur",
+
+        'hidetopbar',
+        'debug_mode',
     ],
   },
   class BlurMePrefsWidget extends Gtk.Box {
@@ -52,6 +58,23 @@ const BlurMePrefsWidget = GObject.registerClass(
 
       // ! blur applications
       this._blur_applications.set_active(config.BLUR_APPLICATIONS.get());
+        // ! blur appfolders
+        this._blur_appfolders.set_active(config.BLUR_APPFOLDERS.get());
+
+        // ! blur window list
+        this._blur_window_list.set_active(config.BLUR_WINDOW_LIST.get());
+
+        // ! dash hacks
+        if (config.HACKS_LEVEL.get() == 0) {
+            this._hacks_level0.set_active(true);
+        } else if (config.HACKS_LEVEL.get() == 1) {
+            this._hacks_level1.set_active(true);
+        } else if (config.HACKS_LEVEL.get() == 2) {
+            this._hacks_level2.set_active(true);
+        } else {
+            this._log(`hack level out-of-bound: ${hack_level}, defaulting to 1.`);
+            this._hacks_level0.set_active(true);
+        }
 
       this._blur_other.set_active(config.BLUR_OTHER.get());
 
@@ -74,6 +97,17 @@ const BlurMePrefsWidget = GObject.registerClass(
 
       // ! static panel blur
       this._static_blur.set_active(config.STATIC_BLUR.get());
+        // ! appfolder dialog opacity
+        this._appfolder_dialog_opacity_scale.set_value(config.APPFOLDER_DIALOG_OPACITY.get());
+
+        // ! static panel blur
+        this._static_blur.set_active(config.STATIC_BLUR.get());
+
+        // ! hidetopbar compatibility
+        this._hidetopbar.set_active(config.HIDETOPBAR.get());
+
+        // ! debug mode
+        this._debug_mode.set_active(config.DEBUG.get());
     }
 
     sigma_changed(w) {
@@ -122,6 +156,16 @@ const BlurMePrefsWidget = GObject.registerClass(
       config.TOGGLE_APP_BLUR.set(value);
     }
 
+    blur_appfolders_toggled(w) {
+        let value = w.get_active();
+        config.BLUR_APPFOLDERS.set(value);
+    }
+
+    blur_window_list_toggled(w) {
+        let value = w.get_active();
+        config.BLUR_WINDOW_LIST.set(value);
+    }
+
     hacks_level0_toggled(w) {
       let is_active = w.get_active();
       if (is_active) {
@@ -148,13 +192,29 @@ const BlurMePrefsWidget = GObject.registerClass(
       config.DASH_OPACITY.set(value);
     }
 
-    static_blur_toogled(w) {
-      let value = w.get_active();
-      config.STATIC_BLUR.set(value);
+    appfolder_dialog_opacity_changed(w) {
+        let value = w.get_value();
+        config.APPFOLDER_DIALOG_OPACITY.set(value);
+    }
+
+    static_blur_toggled(w) {
+        let value = w.get_active();
+        config.STATIC_BLUR.set(value);
+    }
+
+    hidetopbar_toggled(w) {
+        let value = w.get_active();
+        config.HIDETOPBAR.set(value);
+    }
+
+    debug_mode_toggled(w) {
+        let value = w.get_active();
+        config.DEBUG.set(value);
     }
 
     _log(str) {
-      log(`[Blur Me] ${str}`);
+        if (config.DEBUG.get())
+            log(`[Blur Me] ${str}`)
     }
   }
 );

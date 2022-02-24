@@ -56,6 +56,17 @@
         <key type="b" name="blur-other">
             <default>true</default>
             <summary>Boolean, whether to blur things like onscreen keyboard, notifications section, etc.</summary>
+        </key>
+        <!-- BLUR APPFOLDERS -->
+        <key type="b" name="blur-appfolders">
+            <default>true</default>
+            <summary>Boolean, whether to blur appfolders or not</summary>
+            <description />
+        </key>
+        <!-- BLUR WINDOW LIST -->
+        <key type="b" name="blur-window-list">
+            <default>true</default>
+            <summary>Boolean, whether to blur window list extension or not</summary>
             <description />
         </key>
         <!-- HACKS LEVEL -->
@@ -70,10 +81,28 @@
             <summary>Opacity of dash to use</summary>
             <description />
         </key>
+        <!-- APPFOLDER DIALOG OPACITY -->
+        <key type="d" name="appfolder-dialog-opacity">
+            <default>0.12</default>
+            <summary>Opacity of appfolder dialog to use</summary>
+            <description />
+        </key>
         <!-- STATIC BLUR -->
         <key type="b" name="static-blur">
             <default>true</default>
             <summary>Boolean, whether to have a static blur on panel or a dynamic one</summary>
+            <description />
+        </key>
+        <!-- HIDETOPBAR -->
+        <key type="b" name="hidetopbar">
+            <default>false</default>
+            <summary>Boolean, whether to try compatibility with hidetopbar@mathieu.bidon.ca or not</summary>
+            <description />
+        </key>
+        <!-- DEBUG -->
+        <key type="b" name="debug">
+            <default>false</default>
+            <summary>Boolean, set to true to activate debug mode (more verbose journalctl logs)</summary>
             <description />
         </key>
     </schema>

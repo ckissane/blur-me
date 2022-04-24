@@ -4,7 +4,8 @@
     "shell-version": [
         "40",
         "40.1",
-        "41"
+        "41",
+        "42"
     ],
     "url": "https://github.com/ckissane/blur-me",
     "uuid": "blur-me@nunchucks"
